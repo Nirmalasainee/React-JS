@@ -18,3 +18,11 @@
 - HTTPs
 - Tree shaking - remove unused code 
 - Parcel Doc - https://parceljs.org/
+
+
+
+
+- Types of Export 
+  - Named export 
+  - Default export 
+  
