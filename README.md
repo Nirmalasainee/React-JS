@@ -26,3 +26,6 @@
   - Named export 
   - Default export 
   
+- Hooks (Normal utillity JS function)
+  - useState() - Super powerful state variables in React
+  - useEffect() 
