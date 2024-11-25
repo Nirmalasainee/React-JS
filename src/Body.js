@@ -4,6 +4,8 @@ import Shimmer from "./Shimmer";
 
 
 const Body = ()=>{
+    const [searchValue, setSearchValue] = useState("");
+    const [filteredResList, setFilteredResList] = useState([]);
     const [restaurantList, setRestaurantList] = useState([]);
     useEffect(()=>{
         fetchData()
@@ -15,6 +17,7 @@ const Body = ()=>{
         );
         const json = await data.json();
         setRestaurantList(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setFilteredResList(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     };
 
     // Conditional rendering
@@ -24,6 +27,15 @@ const Body = ()=>{
     return (
         <div className="body">
             <div className="filter">
+                <div className="search-box">
+                    <input type="text" className="search-res" value={searchValue} onChange={(e)=>{
+                        setSearchValue(e.target.value)
+                    }}/>
+                    <button className="search-btn" onClick={()=>{
+                        const filteredResList = restaurantList.filter((res) => res.info.name.toLowerCase().includes(searchValue.toLowerCase()))
+                        setFilteredResList(filteredResList)
+                    }}>Search</button>
+                </div>
                 <button className="filter-btn" onClick={
                     ()=>{
                         const filteredList = restaurantList.filter(
@@ -35,7 +47,7 @@ const Body = ()=>{
                 </button>
             </div>
             <div className="res-container">
-            {restaurantList.map((item) => (
+            {filteredResList.map((item) => (
                 <RestaurantCard key={item.info.id} resData={item.info} />
             ))}
             </div>
